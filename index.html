@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Leitos - HCFMB</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* --- ESTÉTICA GERAL --- */
+        :root {
+            --bg-body: #050a14;
+            --bg-painel: #0b1120;
+            --bg-card: #151e32;
+            --cor-texto: #e2e8f0;
+
+            /* Cores Semânticas */
+            --cor-vago: #00ff88;
+            --cor-ocupado: #7c4dff;
+            --cor-alta: #00b0ff;
+            --cor-bloqueio: #ff0040;
+            --cor-cruz: #ff2a2a;
+
+            /* Cores Específicas para Categorias */
+            --cor-enf-adulto: #00ff88;
+            --cor-enf-inf: #00b0ff;
+            --cor-uti-adulto: #ff2a2a;
+            --cor-uti-inf: #ff9100;
+            --cor-geral: #7c4dff;
+
+            --header-h: 70px;
+            --footer-h: 40px;
+            --painel-h: 380px; /* AUMENTADO de 280px */
+        }
+
+        /* RESET IMPORTANTE PARA SCROLL */
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--cor-texto);
+            margin: 0; padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CABEÇALHO (Fixo no topo) */
+        header {
+            height: var(--header-h);
+            background: linear-gradient(90deg, #0f172a 0%, #020617 100%);
+            padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        .marca h1 {
+            font-family: 'Chakra Petch', sans-serif;
+            text-transform: uppercase; margin: 0; letter-spacing: 2px;
+            font-size: 1.5rem; color: #fff;
+        }
+
+        /* ÁREA SUPERIOR ESTÁTICA */
+        .painel-estatico {
+            height: var(--painel-h);
+            background-color: var(--bg-painel);
+            display: grid;
+            grid-template-columns: 380px 1fr; /* AUMENTADO de 320px para 380px */
+            gap: 20px;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            z-index: 90;
+        }
+
+        /* SEÇÃO ESQUERDA: GRÁFICO + LISTA */
+        .secao-grafico-rotativo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .chart-section-title {
+            position: absolute;
+            top: 10px; left: 15px;
+            font-family: 'Chakra Petch';
+            font-weight: bold;
+            font-size: 1rem; /* AUMENTADO de 0.9rem */
+            color: #fff; text-transform: uppercase;
+            letter-spacing: 1px; opacity: 0.8;
+        }
+
+        .chart-wrapper-lg {
+            position: relative;
+            height: 220px; width: 220px; /* AUMENTADO de 180px */
+            flex-shrink: 0;
+            margin-top: 20px;
+        }
+
+        .chart-percent-lg {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-family: 'Chakra Petch';
+            font-size: 2rem; /* AUMENTADO de 1.6rem */
+            font-weight: bold; color: #fff;
+            text-align: center; line-height: 1;
+        }
+        .chart-sub-lg {
+            font-size: 0.75rem; /* AUMENTADO de 0.6rem */
+            color: #aaa; font-weight: normal; display: block; margin-top: 5px;
+        }
+
+        .lista-taxas {
+            flex: 1;
+            display: flex; flex-direction: column;
+            gap: 6px; justify-content: center;
+            margin-top: 20px;
+        }
+
+        .item-taxa {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.95rem; /* AUMENTADO de 0.8rem */
+            color: #94a3b8; font-weight: 600;
+            padding: 4px 8px; /* AUMENTADO de 3px 6px */
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .item-taxa.ativo {
+            background: rgba(255,255,255,0.08);
+            color: #fff; transform: scale(1.02);
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; display: inline-block; } /* AUMENTADO de 6px */
+
+        /* SEÇÃO DIREITA: KPIs E ALTAS */
+        .secao-kpis-wrapper {
+            display: flex; gap: 20px; height: 100%;
+        }
+
+        /* BLOCO DE VAGAS - UNIFICADO */
+        .bloco-vagas {
+            flex: 2.5;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            padding: 10px;
+            position: relative;
+        }
+
+        .titulo-vagas {
+            font-family: 'Chakra Petch';
+            font-size: 0.9rem;
+            color: var(--cor-vago);
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .grid-vagas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .item-vaga {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px;
+            border-left: 3px solid rgba(255,255,255,0.1);
+        }
+
+        .item-vaga.enf-adulto { border-left-color: var(--cor-enf-adulto); }
+        .item-vaga.enf-inf { border-left-color: var(--cor-enf-inf); }
+        .item-vaga.uti-adulto { border-left-color: var(--cor-uti-adulto); }
+        .item-vaga.uti-inf { border-left-color: var(--cor-uti-inf); }
+
+        .mini-val {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 3.8rem; /* AUMENTADO de 3.2rem */
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .mini-tit {
+            font-size: 0.95rem; /* AUMENTADO de 0.85rem */
+            text-transform: uppercase;
+            color: #94a3b8;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+
+        /* BLOCO DE ALTAS - COMPRIMIDO */
+        .bloco-altas {
+            flex: 0.9; /* REDUZIDO de 1.2 para comprimir */
+            background: rgba(0, 176, 255, 0.05);
+            border: 1px solid rgba(0, 176, 255, 0.2);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            padding: 8px; /* REDUZIDO de 10px */
+            position: relative;
+        }
+        .titulo-altas {
+            font-family: 'Chakra Petch';
+            font-size: 1rem; /* AUMENTADO de 0.9rem */
+            color: var(--cor-alta);
+            text-transform: uppercase; font-weight: bold; letter-spacing: 1px;
+            text-align: center; margin-bottom: 5px;
+        }
+        .valor-total-altas {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            font-family: 'Chakra Petch';
+            font-size: 5.5rem; /* AUMENTADO de 5rem */
+            font-weight: 700; color: #fff;
+            text-shadow: 0 0 20px rgba(0, 176, 255, 0.4);
+        }
+        .detalhe-altas {
+            display: flex; justify-content: space-between;
+            background: rgba(0,0,0,0.2); border-radius: 6px; padding: 8px 12px;
+        }
+        .item-detalhe-alta {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            width: 25%;
+        }
+        .icon-alta-sm { width: 36px; height: 36px; } /* AUMENTADO de 32px */
+        .val-alta-sm { font-weight: bold; font-size: 1.1rem; color: #fff; font-family: 'Chakra Petch'; } /* AUMENTADO de 1rem */
+
+        .icon-enf-adulto-color { color: #00ff88; fill: currentColor; }
+        .icon-enf-inf-color { color: #00ff88; fill: currentColor; opacity: 0.8; }
+        .icon-uti-adulto-color { color: #7c4dff; fill: currentColor; }
+        .icon-uti-inf-color { color: #7c4dff; fill: currentColor; opacity: 0.8; }
+
+        /* ÁREA DE ROLAGEM (Tabelas) */
+        #container-leitos {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 0 40px 20px 40px; /* Sem padding superior */
+            scrollbar-width: none;
+        }
+        #container-leitos::-webkit-scrollbar { display: none; }
+
+        .grid-leitos {
+            display: flex;
+            flex-direction: column;
+            gap: 40px; /* Espaço reduzido entre tabelas */
+            padding-top: 20px; /* Espaço no topo da primeira tabela */
+        }
+
+        .grupo-box {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: visible; /* Permite sticky funcionar */
+            display: flex;
+            flex-direction: column;
+            height: auto; /* Altura natural baseada no conteúdo */
+        }
+
+        /* Cabeçalho colorido por grupo - AUMENTADO */
+        .grupo-titulo {
+            padding: 30px 30px; /* AUMENTADO padding vertical */
+            margin: 0;
+            font-size: 3rem; /* AUMENTADO de 2.8rem */
+            color: #fff;
+            font-weight: bold;
+            font-family: 'Chakra Petch';
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .header-enf-adulto { background: rgba(0, 255, 136, 0.15); color: var(--cor-enf-adulto); }
+        .header-enf-inf { background: rgba(0, 176, 255, 0.15); color: var(--cor-enf-inf); }
+        .header-uti-adulto { background: rgba(255, 42, 42, 0.15); color: var(--cor-uti-adulto); }
+        .header-uti-inf { background: rgba(255, 145, 0, 0.15); color: var(--cor-uti-inf); }
+
+        /* TABELA - Estrutura simplificada */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 2rem;
+        }
+
+        /* CABEÇALHO STICKY - Fica fixo quando toca o topo */
+        thead {
+            position: sticky;
+            top: 0; /* Fica no topo do container de scroll */
+            z-index: 80;
+            background: #151e32;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Quando o thead está sticky, adiciona sombra extra */
+        thead::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -4px;
+            height: 4px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+            pointer-events: none;
+        }
+
+        th {
+            text-align: left;
+            padding: 25px 30px;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            background: #151e32;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        td {
+            padding: 22px 30px; /* AUMENTADO de 18px */
+            border-top: 1px solid rgba(255,255,255,0.02);
+            font-size: 2rem; /* Garante tamanho consistente */
+        }
+
+        .badge {
+            padding: 8px 18px; /* AUMENTADO */
+            border-radius: 6px;
+            font-weight: bold;
+            font-family: 'Chakra Petch';
+            min-width: 60px; /* AUMENTADO */
+            display: inline-block;
+            text-align: center;
+            font-size: 1.8rem; /* AUMENTADO de 1.4rem */
+        }
+        .b-vago { color: var(--cor-vago); background: rgba(0, 255, 136, 0.1); }
+        .b-alta { color: var(--cor-alta); }
+        .b-bloq { color: var(--cor-bloqueio); }
+
+        /* ALERTA TELA CHEIA */
+        #alerta-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            backdrop-filter: blur(15px);
+        }
+        .alerta-box {
+            background: #1e293b; padding: 40px 80px; border-radius: 16px;
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
+        }
+        .alerta-titulo { font-family: 'Chakra Petch', sans-serif; font-size: 3rem; text-transform: uppercase; margin: 0; font-weight: 700; letter-spacing: 2px; }
+        .alerta-sub { font-size: 1.2rem; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase;}
+        .alerta-detalhe { font-size: 2.2rem; color: #fff; font-weight: 600; }
+
+        .alerta-vago .alerta-titulo { color: var(--cor-vago); }
+        .alerta-internacao .alerta-titulo { color: var(--cor-ocupado); }
+        .alerta-alta .alerta-titulo { color: var(--cor-alta); }
+
+        /* ÍCONES */
+        .icon-container-lg { width: 100px; height: 100px; margin-bottom: 10px; }
+        .icon-container-sm { width: 40px; height: 40px; min-width: 40px;}
+        .svg-icon { width: 100%; height: 100%; fill: currentColor; }
+
+        .svg-vago { color: var(--cor-vago); animation: pulse-green 2s infinite; }
+        .svg-cruz { color: var(--cor-cruz); animation: pulse-red 2s infinite; }
+        .svg-alta { color: var(--cor-alta); animation: pulse-blue 2s infinite; }
+
+        @keyframes pulse-green { 0% { filter: drop-shadow(0 0 5px var(--cor-vago)); transform: scale(1); } 50% { filter: drop-shadow(0 0 20px var(--cor-vago)); transform: scale(1.1); } 100% { filter: drop-shadow(0 0 5px var(--cor-vago)); transform: scale(1); } }
+        @keyframes pulse-red { 0% { filter: drop-shadow(0 0 5px var(--cor-cruz)); transform: scale(1); } 50% { filter: drop-shadow(0 0 20px var(--cor-cruz)); transform: scale(1.1); } 100% { filter: drop-shadow(0 0 5px var(--cor-cruz)); transform: scale(1); } }
+        @keyframes pulse-blue { 0% { filter: drop-shadow(0 0 5px var(--cor-alta)); transform: scale(1); } 50% { filter: drop-shadow(0 0 20px var(--cor-alta)); transform: scale(1.1); } 100% { filter: drop-shadow(0 0 5px var(--cor-alta)); transform: scale(1); } }
+
+        /* NOTIFICAÇÕES (STACK) */
+        #container-notificacoes {
+            position: fixed; bottom: 60px; right: 20px; width: 380px;
+            display: flex; flex-direction: column; gap: 10px; z-index: 900;
+        }
+        .card-notificacao {
+            background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(10px);
+            border-left: 6px solid var(--cor-vago); border-radius: 8px; padding: 15px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #fff;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .card-notificacao.internacao { border-left-color: var(--cor-cruz); }
+        .card-notificacao.alta { border-left-color: var(--cor-alta); }
+
+        .card-info { flex: 1; }
+        .card-header { font-family: 'Chakra Petch'; font-weight: bold; font-size: 1.1rem; text-transform: uppercase; display: flex; justify-content: space-between; }
+        .card-body { font-size: 1.1rem; font-weight: 600; margin: 5px 0; }
+        .card-time { font-size: 0.8rem; color: #94a3b8; text-align: right; }
+
+        /* RODAPÉ */
+        .footer-bar { position: fixed; bottom: 0; width: 100%; height: var(--footer-h); background-color: #020617; border-top: 1px solid #1e293b; z-index: 500; display: flex; }
+        .status-fixo { width: 150px; background: #0f172a; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; font-size: 0.9rem; color: #fff; z-index: 2; border-right: 1px solid #334155; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+        .led-verde { width: 10px; height: 10px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; animation: piscar 1.5s infinite; }
+        @keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .ticker-wrap { flex-grow: 1; overflow: hidden; position: relative; }
+        .ticker { position: absolute; white-space: nowrap; height: 100%; line-height: 40px; animation: ticker 40s linear infinite; font-family: 'Chakra Petch'; font-size: 1.1rem; }
+        @keyframes ticker { 0% { left: 100%; } 100% { left: -100%; } }
+
+        .linha-destaque-vaga { animation: highlight-green 3s infinite alternate; }
+        @keyframes highlight-green { from { background: transparent; } to { background: rgba(0, 255, 136, 0.2); } }
+        .linha-destaque-ocup { animation: highlight-purple 3s infinite alternate; }
+        @keyframes highlight-purple { from { background: transparent; } to { background: rgba(124, 77, 255, 0.2); } }
+        .linha-destaque-alta { animation: highlight-blue 3s infinite alternate; }
+        @keyframes highlight-blue { from { background: transparent; } to { background: rgba(0, 176, 255, 0.2); } }
+
+    </style>
+</head>
+<body>
+
+    <div id="alerta-overlay" class="animate__animated">
+        <div id="alerta-box-content" class="alerta-box animate__animated animate__zoomIn">
+            <div id="alerta-icone-lg" class="icon-container-lg"></div>
+            <h1 class="alerta-titulo" id="alerta-titulo">NOVA VAGA</h1>
+            <div class="alerta-sub" id="alerta-sub">DISPONÍVEL EM</div>
+            <div class="alerta-detalhe" id="alerta-local">UTI ADULTO</div>
+        </div>
+    </div>
+
+    <div id="container-notificacoes"></div>
+
+    <header>
+        <div class="marca">
+            <h1>HCFMB <span style="font-weight:400; font-size:0.6em; opacity:0.7; margin-left:10px;">Núcleo Interno de Regulação</span></h1>
+        </div>
+        <div style="font-family: 'Chakra Petch'; font-size: 1.8rem; font-weight: bold; color: #fff;" id="relogio">00:00</div>
+    </header>
+
+    <div class="painel-estatico">
+
+        <!-- SEÇÃO ESQUERDA: GRÁFICO ROTATIVO + LISTA -->
+        <div class="secao-grafico-rotativo">
+            <div class="chart-section-title">OCUPAÇÃO</div>
+
+            <div class="chart-wrapper-lg">
+                <canvas id="chartRotativo"></canvas>
+                <div class="chart-percent-lg" id="chart-main-label">
+                    <span id="chart-val">0%</span>
+                    <span class="chart-sub-lg" id="chart-tit">GERAL</span>
+                </div>
+            </div>
+            <div class="lista-taxas" id="lista-taxas">
+                <!-- Preenchido via JS -->
+            </div>
+        </div>
+
+        <!-- SEÇÃO DIREITA: KPIs E ALTAS -->
+        <div class="secao-kpis-wrapper">
+
+            <!-- BLOCO 1: VAGAS DISPONÍVEIS -->
+            <div class="bloco-vagas">
+                <div class="titulo-vagas">VAGAS DISPONÍVEIS</div>
+                <div class="grid-vagas">
+                    <div class="item-vaga enf-adulto">
+                        <div class="mini-val" id="kpi-vago-enfAdulto">0</div>
+                        <div class="mini-tit">ENF ADULTO</div>
+                    </div>
+                    <div class="item-vaga enf-inf">
+                        <div class="mini-val" id="kpi-vago-enfInf">0</div>
+                        <div class="mini-tit">ENF INF</div>
+                    </div>
+                    <div class="item-vaga uti-adulto">
+                        <div class="mini-val" id="kpi-vago-utiAdulto">0</div>
+                        <div class="mini-tit">UTI ADULTO</div>
+                    </div>
+                    <div class="item-vaga uti-inf">
+                        <div class="mini-val" id="kpi-vago-utiInf">0</div>
+                        <div class="mini-tit">UTI INF</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 2: ALTAS -->
+            <div class="bloco-altas">
+                <div class="titulo-altas">TOTAL DE ALTAS</div>
+                <div class="valor-total-altas" id="total-altas-geral">0</div>
+
+                <div class="detalhe-altas">
+                    <!-- Enf Adulto (Verde) - BONECO ADULTO -->
+                    <div class="item-detalhe-alta" title="Enfermaria Adulto">
+                        <svg class="icon-alta-sm icon-enf-adulto-color" viewBox="0 0 24 24">
+                            <circle cx="12" cy="5" r="3"/>
+                            <path d="M12 8c-3.5 0-6 2-6 4.5V23h3v-7h6v7h3V12.5C18 10 15.5 8 12 8z"/>
+                        </svg>
+                        <div class="val-alta-sm" id="alta-enf-adulto">0</div>
+                    </div>
+
+                    <!-- Enf Inf (Verde) - BEBÊ -->
+                    <div class="item-detalhe-alta" title="Enfermaria Infantil">
+                        <svg class="icon-alta-sm icon-enf-inf-color" viewBox="0 0 24 24">
+                            <circle cx="12" cy="5.5" r="2.5"/>
+                            <path d="M12 9c-2.5 0-4.5 1.5-4.5 3.5V21h2v-5h5v5h2V12.5C16.5 10.5 14.5 9 12 9z"/>
+                            <ellipse cx="12" cy="5.5" rx="3" ry="2.5" opacity="0.3"/>
+                        </svg>
+                        <div class="val-alta-sm" id="alta-enf-inf">0</div>
+                    </div>
+
+                    <!-- UTI Adulto (Roxo) - BONECO ADULTO -->
+                    <div class="item-detalhe-alta" title="UTI Adulto">
+                        <svg class="icon-alta-sm icon-uti-adulto-color" viewBox="0 0 24 24">
+                            <circle cx="12" cy="5" r="3"/>
+                            <path d="M12 8c-3.5 0-6 2-6 4.5V23h3v-7h6v7h3V12.5C18 10 15.5 8 12 8z"/>
+                        </svg>
+                        <div class="val-alta-sm" id="alta-uti-adulto">0</div>
+                    </div>
+
+                    <!-- UTI Inf (Roxo) - BEBÊ -->
+                    <div class="item-detalhe-alta" title="UTI Infantil">
+                        <svg class="icon-alta-sm icon-uti-inf-color" viewBox="0 0 24 24">
+                            <circle cx="12" cy="5.5" r="2.5"/>
+                            <path d="M12 9c-2.5 0-4.5 1.5-4.5 3.5V21h2v-5h5v5h2V12.5C16.5 10.5 14.5 9 12 9z"/>
+                            <ellipse cx="12" cy="5.5" rx="3" ry="2.5" opacity="0.3"/>
+                        </svg>
+                        <div class="val-alta-sm" id="alta-uti-inf">0</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="container-leitos" class="grid-leitos"></div>
+
+    <div class="footer-bar">
+        <div class="status-fixo"><div class="led-verde"></div> ONLINE</div>
+        <div class="ticker-wrap"><div class="ticker" id="ticker-content">Iniciando monitoramento...</div></div>
+    </div>
+
+    <script>
+        const URL_FONTE = 'https://app.hcfmb.unesp.br:8099/leitosvagosrhp2';
+        const CHECK_INTERVAL = 60000;
+
+        // Tempos configurados
+        const TEMPO_ALERTA_VAGA = 30000; // 30 segundos
+        const TEMPO_ALERTA_INTERNACAO = 15000; // 15 segundos
+        const TEMPO_ALERTA_ALTA = 10000; // 10 segundos
+        const TEMPO_NOTIFICACAO_STACK = 300000; // 5 minutos
+        const TEMPO_ROTACAO_GRAFICO = 7000; // 7 Segundos
+
+        let dadosAnteriores = null;
+        let chartInstance = null;
+        let indiceGrafico = 0;
+        let dadosGlobais = null;
+
+        let filaAlertas = [];
+        let processandoAlerta = false;
+
+
+        const ICONE_CAMA = `<svg class="svg-icon svg-vago" viewBox="0 0 24 24"><path d="M20,10V7A2,2 0 0,0 18,5H6A2,2 0 0,0 4,5V8H2V19H4V15H20V19H22V10H20M13,7H18V10H13V7M6,7H11V10H6V7M20,13H4V12H20V13Z" /></svg>`;
+        const ICONE_CRUZ = `<svg class="svg-icon svg-cruz" viewBox="0 0 24 24"><path d="M18,14H14V18H10V14H6V10H10V6H14V10H18M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" /></svg>`;
+        const ICONE_ALTA = `<svg class="svg-icon svg-alta" viewBox="0 0 24 24"><path d="M5,5H11V7H5V17H11V19H5A2,2 0 0,1 3,17V7A2,2 0 0,1 5,5M21,12L15,18V13H9V11H15V6L21,12Z" /></svg>`;
+
+        // Configuração dos tipos de gráficos para rotação - ALTERADO
+        const configGraficos = [
+            { key: 'geral', label: 'Geral', color: '#7c4dff' },
+            { key: 'enfAdulto', label: 'Enf Adulto', color: '#00ff88' },
+            { key: 'enfInf', label: 'Enf Inf', color: '#00b0ff' },
+            { key: 'utiAdulto', label: 'UTI Adulto', color: '#ff2a2a' },
+            { key: 'utiInf', label: 'UTI Inf', color: '#ff9100' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            atualizarRelogio();
+            setInterval(atualizarRelogio, 1000);
+
+            cicloAtualizacao();
+            setInterval(cicloAtualizacao, CHECK_INTERVAL);
+
+            setInterval(processarFila, 1000);
+            setInterval(atualizarTemposCards, 30000);
+
+            // Rotação do gráfico
+            setInterval(rotacionarGrafico, TEMPO_ROTACAO_GRAFICO);
+
+            // Scroll automático da página
+            iniciarScrollAutomatico();
+        });
+
+        function atualizarRelogio() {
+            document.getElementById('relogio').innerText = new Date().toLocaleTimeString('pt-BR');
+        }
+
+        // --- SCROLL AUTOMÁTICO DA PÁGINA (PARA TELÃO) ---
+        function iniciarScrollAutomatico() {
+            const container = document.getElementById('container-leitos');
+            const velocidade = 0.8; // Velocidade de scroll
+            const tickRate = 30;
+            const pausaNoFinal = 4000; // 4 segundos no final
+            const pausaNoInicio = 3000; // 3 segundos no início
+
+            let pausado = false;
+
+            setInterval(() => {
+                if (processandoAlerta || pausado) return;
+
+                const maxScroll = container.scrollHeight - container.clientHeight;
+
+                // Se não há conteúdo para rolar
+                if (maxScroll <= 1) {
+                    container.scrollTop = 0;
+                    return;
+                }
+
+                // Rola para baixo
+                container.scrollTop += velocidade;
+
+                // Chegou no final
+                if (container.scrollTop >= maxScroll - 2) {
+                    pausado = true;
+                    container.scrollTop = maxScroll; // Garante que chegou no final
+
+                    setTimeout(() => {
+                        container.scrollTo({ top: 0, behavior: 'smooth' });
+                        setTimeout(() => {
+                            pausado = false;
+                        }, pausaNoInicio);
+                    }, pausaNoFinal);
+                }
+            }, tickRate);
+        }
+
+
+        async function cicloAtualizacao() {
+            if (processandoAlerta) return;
+            try {
+                const res = await fetch(URL_FONTE);
+                const txt = await res.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(txt, 'text/html');
+                const dados = extrairDados(doc);
+
+                dadosGlobais = dados.totais;
+
+                const eventos = detectingMudancasMultiplas(dados);
+
+                eventos.forEach(evt => adicionarFila(evt));
+
+                if (eventos.length === 0) {
+                    atualizarInterface(dados);
+                }
+
+                dadosAnteriores = dados;
+            } catch (e) {
+                console.error(e);
+                document.getElementById('ticker-content').innerText = "CONEXÃO INTERROMPIDA - TENTANDO RECONECTAR...";
+                document.getElementById('ticker-content').style.color = "red";
+            }
+        }
+
+        function classificarCategoriaFina(nome, grupoOrigem) {
+            const texto = (nome + " " + grupoOrigem).toUpperCase();
+            const isUti = texto.includes('UTI') || texto.includes('INTENSIVA') || texto.includes('CORONARIANA');
+            let isPed = false;
+
+            if (texto.includes('ORTOPED')) {
+                if (texto.includes('PEDIAT') || texto.includes('NEO') || texto.includes('BERC') || texto.includes('CRIAN')) {
+                    isPed = true;
+                }
+            } else {
+                if (texto.includes('PED') || texto.includes('NEO') || texto.includes('BERC') || texto.includes('CRIAN')) {
+                    isPed = true;
+                }
+            }
+
+            if (isUti) {
+                return isPed ? 'utiInf' : 'utiAdulto';
+            } else {
+                return isPed ? 'enfInf' : 'enfAdulto';
+            }
+        }
+
+        function extrairDados(doc) {
+            let output = {
+                grupos: {
+                    'UTIs de Adultos': [],
+                    'UTIs Infantis': [],
+                    'Enfermarias Infantis': [],
+                    'Enfermarias de Adultos': []
+                },
+                totais: {
+                    geral: { ocup:0, vago:0, bloq:0, alta:0 },
+                    utiAdulto: { ocup:0, vago:0, bloq:0, alta:0 },
+                    utiInf: { ocup:0, vago:0, bloq:0, alta:0 },
+                    enfAdulto: { ocup:0, vago:0, bloq:0, alta:0 },
+                    enfInf: { ocup:0, vago:0, bloq:0, alta:0 }
+                }
+            };
+
+            const mapaChaves = {
+                'utiAdulto': 'UTIs de Adultos',
+                'utiInf': 'UTIs Infantis',
+                'enfAdulto': 'Enfermarias de Adultos',
+                'enfInf': 'Enfermarias Infantis'
+            };
+
+            doc.querySelectorAll('.grupo-container').forEach(bloco => {
+                const tituloOriginal = bloco.querySelector('.grupo-titulo')?.innerText.trim() || "";
+
+                bloco.querySelectorAll('.card').forEach(card => {
+                    const nome = card.querySelector('.unidade').innerText.trim();
+                    const get = (c) => {
+                        const el = card.querySelector(`.status-item.${c} div:nth-child(2)`);
+                        return el ? parseInt(el.innerText) || 0 : 0;
+                    };
+
+                    const d = {
+                        nome, ocup: get('ocupado'), vago: get('vago'), alta: get('alta'),
+                        bloq: get('bloqueado') + get('bloqueado-infeccao')
+                    };
+
+                    const catKey = classificarCategoriaFina(nome, tituloOriginal);
+                    const grupoDestino = mapaChaves[catKey];
+
+                    output.grupos[grupoDestino].push(d);
+
+                    output.totais.geral.ocup += d.ocup;
+                    output.totais.geral.vago += d.vago;
+                    output.totais.geral.alta += d.alta;
+                    output.totais.geral.bloq += d.bloq;
+
+                    if (output.totais[catKey]) {
+                        output.totais[catKey].ocup += d.ocup;
+                        output.totais[catKey].vago += d.vago;
+                        output.totais[catKey].alta += d.alta;
+                        output.totais[catKey].bloq += d.bloq;
+                    }
+                });
+            });
+
+            return output;
+        }
+
+        function atualizarInterface(dados, destaqueInfo = null) {
+            const t = dados.totais;
+
+            // Atualiza Card de Vagas (IDs ATUALIZADOS)
+            document.getElementById('kpi-vago-enfAdulto').innerText = t.enfAdulto.vago;
+            document.getElementById('kpi-vago-enfInf').innerText = t.enfInf.vago;
+            document.getElementById('kpi-vago-utiAdulto').innerText = t.utiAdulto.vago;
+            document.getElementById('kpi-vago-utiInf').innerText = t.utiInf.vago;
+
+            // --- LÓGICA DE ALTAS (IDs ATUALIZADOS) ---
+            const altaTotal = t.geral.alta;
+
+            document.getElementById('total-altas-geral').innerText = altaTotal;
+            document.getElementById('alta-enf-adulto').innerText = t.enfAdulto.alta;
+            document.getElementById('alta-enf-inf').innerText = t.enfInf.alta;
+            document.getElementById('alta-uti-adulto').innerText = t.utiAdulto.alta;
+            document.getElementById('alta-uti-inf').innerText = t.utiInf.alta;
+
+            if (!chartInstance) {
+                rotacionarGrafico();
+            }
+
+            const container = document.getElementById('container-leitos');
+            const prevScroll = container.scrollTop;
+            container.innerHTML = '';
+
+            const ordemExibicao = [
+                'UTIs de Adultos',
+                'UTIs Infantis',
+                'Enfermarias Infantis',
+                'Enfermarias de Adultos'
+            ];
+
+            const estilosHeader = {
+                'UTIs de Adultos': 'header-uti-adulto',
+                'UTIs Infantis': 'header-uti-inf',
+                'Enfermarias Infantis': 'header-enf-inf',
+                'Enfermarias de Adultos': 'header-enf-adulto'
+            };
+
+            ordemExibicao.forEach(grupoNome => {
+                const unidades = dados.grupos[grupoNome];
+                if (!unidades || unidades.length === 0) return;
+
+                let rows = unidades.map(u => {
+                    let classeExtra = '';
+                    if (destaqueInfo && destaqueInfo.unidades.includes(u.nome)) {
+                        if (destaqueInfo.tipo === 'vaga') classeExtra = 'linha-destaque-vaga';
+                        else if (destaqueInfo.tipo === 'internacao') classeExtra = 'linha-destaque-ocup';
+                        else if (destaqueInfo.tipo === 'alta') classeExtra = 'linha-destaque-alta';
+                    }
+                    return `<tr class="${classeExtra}">
+                        <td>${u.nome}</td>
+                        <td style="color:#aaa">${u.ocup}</td>
+                        <td>${u.vago > 0 ? `<span class="badge b-vago">${u.vago}</span>` : '-'}</td>
+                        <td>${u.alta > 0 ? `<span class="badge b-alta">${u.alta}</span>` : '-'}</td>
+                        <td>${u.bloq > 0 ? `<span class="badge b-bloq">${u.bloq}</span>` : '-'}</td>
+                    </tr>`;
+                }).join('');
+
+                const div = document.createElement('div');
+                div.className = 'grupo-box';
+                const classeHeader = estilosHeader[grupoNome] || '';
+
+                div.innerHTML = `
+                    <div class="grupo-titulo ${classeHeader}">
+                        <span>${grupoNome}</span>
+                        <span style="font-size:0.6em; opacity:0.6; margin-top:5px;">${unidades.length} UND</span>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Unidade</th>
+                                <th>Ocup</th>
+                                <th>Vago</th>
+                                <th>Alta</th>
+                                <th>Bloq</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                `;
+                container.appendChild(div);
+            });
+
+            container.scrollTop = prevScroll;
+
+            if (!processandoAlerta) {
+                document.getElementById('ticker-content').innerText =
+                    `MONITORAMENTO EM TEMPO REAL • ENF ADULTO: ${t.enfAdulto.vago} vagas • ENF INF: ${t.enfInf.vago} vagas • UTI ADULTO: ${t.utiAdulto.vago} vagas • UTI INF: ${t.utiInf.vago} vagas`;
+            }
+        }
+
+        // --- LÓGICA DO GRÁFICO ROTATIVO ---
+        function rotacionarGrafico() {
+            if (!dadosGlobais) return;
+
+            indiceGrafico = (indiceGrafico + 1) % configGraficos.length;
+            const config = configGraficos[indiceGrafico];
+            const dadosCat = dadosGlobais[config.key];
+
+            const total = dadosCat.ocup + dadosCat.vago + dadosCat.bloq + dadosCat.alta;
+            const pct = total ? Math.round((dadosCat.ocup/total)*100) : 0;
+
+            document.getElementById('chart-val').innerText = pct + "%";
+            document.getElementById('chart-tit').innerText = config.label.toUpperCase();
+
+            atualizarListaTaxas(config.key);
+
+            const ctx = document.getElementById('chartRotativo').getContext('2d');
+
+            if (chartInstance) {
+                chartInstance.data.datasets[0].data = [dadosCat.ocup, (total - dadosCat.ocup)];
+                chartInstance.data.datasets[0].backgroundColor = [config.color, 'rgba(255,255,255,0.05)'];
+                chartInstance.update();
+            } else {
+                chartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Ocupado', 'Livre'],
+                        datasets: [{
+                            data: [dadosCat.ocup, (total - dadosCat.ocup)],
+                            backgroundColor: [config.color, 'rgba(255,255,255,0.05)'],
+                            borderWidth: 0, cutout: '75%', borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                        animation: { duration: 1500, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+        }
+
+        function atualizarListaTaxas(activeKey) {
+            const elLista = document.getElementById('lista-taxas');
+            let html = '';
+
+            configGraficos.forEach(conf => {
+                const d = dadosGlobais[conf.key];
+                const t = d.ocup + d.vago + d.bloq + d.alta;
+                const p = t ? Math.round((d.ocup/t)*100) : 0;
+
+                const isActive = conf.key === activeKey ? 'ativo' : '';
+
+                html += `
+                    <div class="item-taxa ${isActive}">
+                        <div style="display:flex; align-items:center;">
+                            <span class="dot" style="background-color:${conf.color}"></span>
+                            ${conf.label}
+                        </div>
+                        <div>${p}%</div>
+                    </div>
+                `;
+            });
+            elLista.innerHTML = html;
+        }
+
+        // --- LÓGICA DE DETECÇÃO ---
+        function detectingMudancasMultiplas(novosDados) {
+            if (!dadosAnteriores) return [];
+
+            let eventosAlta = [];
+            let eventosVaga = [];
+            let eventosInternacao = [];
+
+            for (let grupo in novosDados.grupos) {
+                novosDados.grupos[grupo].forEach(nova => {
+                    let antiga = null;
+                    for(let gAntigo in dadosAnteriores.grupos) {
+                        antiga = dadosAnteriores.grupos[gAntigo].find(a => a.nome === nova.nome);
+                        if (antiga) break;
+                    }
+
+                    if (antiga) {
+                        if (nova.alta > antiga.alta) {
+                            eventosAlta.push(nova.nome);
+                        }
+                        if (nova.ocup > antiga.ocup) {
+                            eventosInternacao.push(nova.nome);
+                        }
+                        if (nova.vago > antiga.vago) {
+                            eventosVaga.push(nova.nome);
+                        }
+                    }
+                });
+            }
+
+            let filaEventos = [];
+
+            if (eventosAlta.length > 0) {
+                filaEventos.push({ tipo: 'alta', unidades: eventosAlta });
+            }
+            if (eventosVaga.length > 0) {
+                filaEventos.push({ tipo: 'vaga', unidades: eventosVaga });
+            }
+            if (eventosInternacao.length > 0) {
+                filaEventos.push({ tipo: 'internacao', unidades: eventosInternacao });
+            }
+
+            return filaEventos;
+        }
+
+        function adicionarFila(info) { filaAlertas.push(info); }
+
+        async function processarFila() {
+            if (processandoAlerta || filaAlertas.length === 0) return;
+            processandoAlerta = true;
+            const proximoAlerta = filaAlertas.shift();
+            criarNotificacaoStack(proximoAlerta);
+            await exibirAlertaTelaCheia(proximoAlerta);
+            processandoAlerta = false;
+        }
+
+        function exibirAlertaTelaCheia(info) {
+            return new Promise((resolve) => {
+                const overlay = document.getElementById('alerta-overlay');
+                const box = document.getElementById('alerta-box-content');
+                const titulo = document.getElementById('alerta-titulo');
+                const sub = document.getElementById('alerta-sub');
+                const local = document.getElementById('alerta-local');
+                const iconeDiv = document.getElementById('alerta-icone-lg');
+
+                box.className = 'alerta-box animate__animated animate__zoomIn';
+
+                let tempoExibicao;
+
+                box.classList.remove('alerta-vago', 'alerta-internacao', 'alerta-alta');
+
+                if (info.tipo === 'vaga') {
+                    tempoExibicao = TEMPO_ALERTA_VAGA;
+                    box.classList.add('alerta-vago');
+                    titulo.innerText = "NOVA VAGA"; sub.innerText = "DISPONÍVEL EM"; iconeDiv.innerHTML = ICONE_CAMA;
+                } else if (info.tipo === 'alta') {
+                    tempoExibicao = TEMPO_ALERTA_ALTA;
+                    box.classList.add('alerta-alta');
+                    titulo.innerText = "NOVA ALTA"; sub.innerText = "REGISTRADA EM"; iconeDiv.innerHTML = ICONE_ALTA;
+                } else {
+                    tempoExibicao = TEMPO_ALERTA_INTERNACAO;
+                    box.classList.add('alerta-internacao');
+                    titulo.innerText = "NOVA INTERNAÇÃO"; sub.innerText = "REGISTRADA EM"; iconeDiv.innerHTML = ICONE_CRUZ;
+                }
+
+                local.innerText = info.unidades.length > 1 ? "MÚLTIPLAS UNIDADES" : info.unidades[0];
+                overlay.style.display = 'flex';
+                document.getElementById('ticker-content').innerText = `ALERTA: ${info.tipo.toUpperCase()} EM ${info.unidades.join(', ')}`;
+
+                setTimeout(() => {
+                    box.classList.remove('animate__zoomIn'); box.classList.add('animate__zoomOut');
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                        atualizarInterface(dadosAnteriores, info);
+                        resolve();
+                    }, 800);
+                }, tempoExibicao);
+            });
+        }
+
+        function criarNotificacaoStack(info) {
+            const container = document.getElementById('container-notificacoes');
+            if (container.children.length >= 4) container.removeChild(container.firstElementChild);
+
+            const div = document.createElement('div');
+            div.className = 'card-notificacao animate__animated animate__slideInRight';
+            div.dataset.timestamp = Date.now();
+
+            let titulo, corTitulo, icone;
+            if (info.tipo === 'vaga') {
+                titulo = "NOVA VAGA"; corTitulo = "var(--cor-vago)"; icone = ICONE_CAMA;
+            } else if (info.tipo === 'alta') {
+                titulo = "NOVA ALTA"; corTitulo = "var(--cor-alta)"; div.classList.add('alta'); icone = ICONE_ALTA;
+            } else {
+                titulo = "NOVA INTERNAÇÃO"; corTitulo = "var(--cor-cruz)"; div.classList.add('internacao'); icone = ICONE_CRUZ;
+            }
+
+            div.innerHTML = `<div class="icon-container-sm">${icone}</div>
+                <div class="card-info"><div class="card-header"><span style="color:${corTitulo}">${titulo}</span></div>
+                <div class="card-body">${info.unidades.join(', ')}</div><div class="card-time">Agora</div></div>`;
+
+            container.appendChild(div);
+
+            setTimeout(() => {
+                div.classList.remove('animate__slideInRight'); div.classList.add('animate__fadeOutRight');
+                setTimeout(() => div.remove(), 1000);
+            }, TEMPO_NOTIFICACAO_STACK);
+        }
+
+        function atualizarTemposCards() {
+            document.querySelectorAll('.card-notificacao').forEach(card => {
+                const ts = parseInt(card.dataset.timestamp);
+                const min = Math.floor((Date.now() - ts) / 60000);
+                const timeEl = card.querySelector('.card-time');
+                if (timeEl) timeEl.innerText = min < 1 ? "Agora" : `Há ${min} min`;
+            });
+        }
+    </script>
+</body>
+</html>
