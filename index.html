@@ -113,15 +113,32 @@
         }
 
         .chart-percent-lg {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-family: 'Chakra Petch';
-            font-size: 2rem; /* AUMENTADO de 1.6rem */
-            font-weight: bold; color: #fff;
-            text-align: center; line-height: 1;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        #chart-val {
+            font-size: 2.2rem; /* Percentual */
+            line-height: 1;
+            margin-bottom: 4px;
         }
         .chart-sub-lg {
-            font-size: 0.75rem; /* AUMENTADO de 0.6rem */
-            color: #aaa; font-weight: normal; display: block; margin-top: 5px;
+            font-size: 0.75rem;
+            color: #aaa;
+            font-weight: normal;
+            display: block;
+            margin-top: 2px;
+            line-height: 1;
         }
 
         .lista-taxas {
@@ -143,7 +160,15 @@
             background: rgba(255,255,255,0.08);
             color: #fff; transform: scale(1.02);
         }
-        .dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; display: inline-block; } /* AUMENTADO de 6px */
+        .dot {
+            width: 10px; /* AUMENTADO de 8px */
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: inline-block;
+            opacity: 1; /* Totalmente visível */
+            box-shadow: 0 0 4px currentColor; /* Brilho sutil */
+        }
 
         /* SEÇÃO DIREITA: KPIs E ALTAS */
         .secao-kpis-wrapper {
@@ -240,20 +265,55 @@
             text-shadow: 0 0 20px rgba(0, 176, 255, 0.4);
         }
         .detalhe-altas {
-            display: flex; justify-content: space-between;
-            background: rgba(0,0,0,0.2); border-radius: 6px; padding: 8px 12px;
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 12px 16px;
+            gap: 20px;
         }
         .item-detalhe-alta {
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-            width: 25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            padding: 16px 12px;
+            border-radius: 8px;
+            transition: transform 0.3s;
         }
-        .icon-alta-sm { width: 36px; height: 36px; } /* AUMENTADO de 32px */
-        .val-alta-sm { font-weight: bold; font-size: 1.1rem; color: #fff; font-family: 'Chakra Petch'; } /* AUMENTADO de 1rem */
+        .item-detalhe-alta:hover {
+            transform: scale(1.05);
+        }
 
-        .icon-enf-adulto-color { color: #00ff88; fill: currentColor; }
-        .icon-enf-inf-color { color: #00ff88; fill: currentColor; opacity: 0.8; }
-        .icon-uti-adulto-color { color: #7c4dff; fill: currentColor; }
-        .icon-uti-inf-color { color: #7c4dff; fill: currentColor; opacity: 0.8; }
+        /* Fundo colorido para Adulto (Roxo) */
+        .item-alta-adulto {
+            background: linear-gradient(135deg, rgba(124, 77, 255, 0.2) 0%, rgba(124, 77, 255, 0.1) 100%);
+            border: 1px solid rgba(124, 77, 255, 0.3);
+        }
+
+        /* Fundo colorido para Infantil (Verde) */
+        .item-alta-infantil {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 255, 136, 0.1) 100%);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .val-alta-sm {
+            font-weight: bold;
+            font-size: 2.8rem; /* AUMENTADO de 2rem */
+            color: #fff;
+            font-family: 'Chakra Petch';
+            line-height: 1;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .label-alta-sm {
+            font-size: 0.9rem; /* AUMENTADO de 0.85rem */
+            color: #e2e8f0;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
 
         /* ÁREA DE ROLAGEM (Tabelas) */
         #container-leitos {
@@ -499,42 +559,16 @@
                 <div class="valor-total-altas" id="total-altas-geral">0</div>
 
                 <div class="detalhe-altas">
-                    <!-- Enf Adulto (Verde) - BONECO ADULTO -->
-                    <div class="item-detalhe-alta" title="Enfermaria Adulto">
-                        <svg class="icon-alta-sm icon-enf-adulto-color" viewBox="0 0 24 24">
-                            <circle cx="12" cy="5" r="3"/>
-                            <path d="M12 8c-3.5 0-6 2-6 4.5V23h3v-7h6v7h3V12.5C18 10 15.5 8 12 8z"/>
-                        </svg>
-                        <div class="val-alta-sm" id="alta-enf-adulto">0</div>
+                    <!-- Total Altas Adulto (Roxo) -->
+                    <div class="item-detalhe-alta item-alta-adulto">
+                        <div class="val-alta-sm" id="alta-adulto-total">0</div>
+                        <div class="label-alta-sm">ADULTO</div>
                     </div>
 
-                    <!-- Enf Inf (Verde) - BEBÊ -->
-                    <div class="item-detalhe-alta" title="Enfermaria Infantil">
-                        <svg class="icon-alta-sm icon-enf-inf-color" viewBox="0 0 24 24">
-                            <circle cx="12" cy="5.5" r="2.5"/>
-                            <path d="M12 9c-2.5 0-4.5 1.5-4.5 3.5V21h2v-5h5v5h2V12.5C16.5 10.5 14.5 9 12 9z"/>
-                            <ellipse cx="12" cy="5.5" rx="3" ry="2.5" opacity="0.3"/>
-                        </svg>
-                        <div class="val-alta-sm" id="alta-enf-inf">0</div>
-                    </div>
-
-                    <!-- UTI Adulto (Roxo) - BONECO ADULTO -->
-                    <div class="item-detalhe-alta" title="UTI Adulto">
-                        <svg class="icon-alta-sm icon-uti-adulto-color" viewBox="0 0 24 24">
-                            <circle cx="12" cy="5" r="3"/>
-                            <path d="M12 8c-3.5 0-6 2-6 4.5V23h3v-7h6v7h3V12.5C18 10 15.5 8 12 8z"/>
-                        </svg>
-                        <div class="val-alta-sm" id="alta-uti-adulto">0</div>
-                    </div>
-
-                    <!-- UTI Inf (Roxo) - BEBÊ -->
-                    <div class="item-detalhe-alta" title="UTI Infantil">
-                        <svg class="icon-alta-sm icon-uti-inf-color" viewBox="0 0 24 24">
-                            <circle cx="12" cy="5.5" r="2.5"/>
-                            <path d="M12 9c-2.5 0-4.5 1.5-4.5 3.5V21h2v-5h5v5h2V12.5C16.5 10.5 14.5 9 12 9z"/>
-                            <ellipse cx="12" cy="5.5" rx="3" ry="2.5" opacity="0.3"/>
-                        </svg>
-                        <div class="val-alta-sm" id="alta-uti-inf">0</div>
+                    <!-- Total Altas Infantil (Verde) -->
+                    <div class="item-detalhe-alta item-alta-infantil">
+                        <div class="val-alta-sm" id="alta-infantil-total">0</div>
+                        <div class="label-alta-sm">INFANTIL</div>
                     </div>
                 </div>
             </div>
@@ -763,14 +797,14 @@
             document.getElementById('kpi-vago-utiAdulto').innerText = t.utiAdulto.vago;
             document.getElementById('kpi-vago-utiInf').innerText = t.utiInf.vago;
 
-            // --- LÓGICA DE ALTAS (IDs ATUALIZADOS) ---
+            // --- LÓGICA DE ALTAS (ADULTO E INFANTIL) ---
             const altaTotal = t.geral.alta;
+            const altaAdulto = t.enfAdulto.alta + t.utiAdulto.alta;
+            const altaInfantil = t.enfInf.alta + t.utiInf.alta;
 
             document.getElementById('total-altas-geral').innerText = altaTotal;
-            document.getElementById('alta-enf-adulto').innerText = t.enfAdulto.alta;
-            document.getElementById('alta-enf-inf').innerText = t.enfInf.alta;
-            document.getElementById('alta-uti-adulto').innerText = t.utiAdulto.alta;
-            document.getElementById('alta-uti-inf').innerText = t.utiInf.alta;
+            document.getElementById('alta-adulto-total').innerText = altaAdulto;
+            document.getElementById('alta-infantil-total').innerText = altaInfantil;
 
             if (!chartInstance) {
                 rotacionarGrafico();
