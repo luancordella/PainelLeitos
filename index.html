@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -15,21 +16,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* --- ESTÃƒâ€°TICA GERAL --- */
+        /* --- ESTÉTICA GERAL --- */
         :root {
             --bg-body: #050a14;
             --bg-painel: #0b1120;
             --bg-card: #151e32;
             --cor-texto: #e2e8f0;
 
-            /* Cores SemÃƒÂ¢nticas */
+            /* Cores Semânticas */
             --cor-vago: #00ff88;
             --cor-ocupado: #7c4dff;
             --cor-alta: #00b0ff;
             --cor-bloqueio: #ff0040;
             --cor-cruz: #ff2a2a;
 
-            /* Cores EspecÃƒÂ­ficas para Categorias */
+            /* Cores Específicas para Categorias */
             --cor-enf-adulto: #00ff88;
             --cor-enf-inf: #00b0ff;
             --cor-uti-adulto: #ff2a2a;
@@ -72,7 +73,7 @@
             display: flex;
         }
 
-        /* CABEÃƒâ€¡ALHO (Fixo no topo) */
+        /* CABEÇALHO (Fixo no topo) */
         header {
             height: var(--header-h);
             background: linear-gradient(90deg, #0f172a 0%, #020617 100%);
@@ -122,7 +123,7 @@
             color: #fff;
         }
 
-        /* ÃƒÂREA SUPERIOR ESTÃƒÂTICA */
+        /* ÁREA SUPERIOR ESTÁTICA */
         .painel-estatico {
             height: var(--painel-h);
             background: linear-gradient(135deg, rgba(24, 38, 68, 0.98) 0%, rgba(10, 18, 34, 0.98) 55%, rgba(6, 12, 24, 1) 100%);
@@ -138,7 +139,7 @@
             z-index: 90;
         }
 
-        /* SEÃƒâ€¡ÃƒÆ’O ESQUERDA: GRÃƒÂFICO + LISTA */
+        /* SEÇÃO ESQUERDA: GRÁFICO + LISTA */
         .secao-grafico-rotativo {
             display: flex;
             align-items: center;
@@ -242,12 +243,12 @@
             margin-right: 8px;
             display: inline-block;
             opacity: 1;
-            /* Totalmente visÃƒÂ­vel */
+            /* Totalmente visível */
             box-shadow: 0 0 4px currentColor;
             /* Brilho sutil */
         }
 
-        /* SEÃƒâ€¡ÃƒÆ’O DIREITA: KPIs E ALTAS */
+        /* SEÇÃO DIREITA: KPIs E ALTAS */
         .secao-kpis-wrapper {
             display: flex;
             gap: 20px;
@@ -428,7 +429,7 @@
             letter-spacing: 1px;
         }
 
-        /* ÃƒÂREA DE ROLAGEM (Tabelas) */
+        /* ÁREA DE ROLAGEM (Tabelas) */
         #container-leitos {
             flex: 1;
             min-height: 0;
@@ -1015,9 +1016,9 @@
             display: flex;
             flex-direction: column;
             gap: 40px;
-            /* EspaÃƒÂ§o reduzido entre tabelas */
+            /* Espaço reduzido entre tabelas */
             padding-top: 20px;
-            /* EspaÃƒÂ§o no topo da primeira tabela */
+            /* Espaço no topo da primeira tabela */
         }
 
         .grupo-box {
@@ -1029,10 +1030,10 @@
             display: flex;
             flex-direction: column;
             height: auto;
-            /* Altura natural baseada no conteÃƒÂºdo */
+            /* Altura natural baseada no conteúdo */
         }
 
-        /* CabeÃƒÂ§alho colorido por grupo - AUMENTADO */
+        /* Cabeçalho colorido por grupo - AUMENTADO */
         .grupo-titulo {
             padding: 30px 30px;
             /* AUMENTADO padding vertical */
@@ -1075,7 +1076,7 @@
             font-size: 2rem;
         }
 
-        /* CABEÃƒâ€¡ALHO STICKY - Fica fixo quando toca o topo */
+        /* CABEÇALHO STICKY - Fica fixo quando toca o topo */
         thead {
             position: sticky;
             top: 0;
@@ -1085,7 +1086,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Quando o thead estÃƒÂ¡ sticky, adiciona sombra extra */
+        /* Quando o thead está sticky, adiciona sombra extra */
         thead::after {
             content: '';
             position: absolute;
@@ -1206,7 +1207,7 @@
             color: var(--cor-alta);
         }
 
-        /* ÃƒÂCONES */
+        /* ÍCONES */
         .icon-container-lg {
             width: 100px;
             height: 100px;
@@ -1291,7 +1292,7 @@
             }
         }
 
-        /* NOTIFICAÃƒâ€¡Ãƒâ€¢ES (STACK) */
+        /* NOTIFICAÇÕES (STACK) */
         #container-notificacoes {
             position: fixed;
             bottom: 60px;
@@ -1349,7 +1350,7 @@
             text-align: right;
         }
 
-        /* RODAPÃƒâ€° */
+        /* RODAPÉ */
         .footer-bar {
             position: fixed;
             bottom: var(--page-pad-y);
@@ -1492,7 +1493,7 @@
         <div id="alerta-box-content" class="alerta-box animate__animated animate__zoomIn">
             <div id="alerta-icone-lg" class="icon-container-lg"></div>
             <h1 class="alerta-titulo" id="alerta-titulo">NOVA VAGA</h1>
-            <div class="alerta-sub" id="alerta-sub">DISPONÃƒÂVEL EM</div>
+            <div class="alerta-sub" id="alerta-sub">DISPONÍVEL EM</div>
             <div class="alerta-detalhe" id="alerta-local">UTI ADULTO</div>
         </div>
     </div>
@@ -1502,9 +1503,9 @@
     <div id="page-principal" class="page ativa">
     <div class="painel-estatico">
 
-        <!-- SEÃƒâ€¡ÃƒÆ’O ESQUERDA: GRÃƒÂFICO ROTATIVO + LISTA -->
+        <!-- SEÇÃO ESQUERDA: GRÁFICO ROTATIVO + LISTA -->
         <div class="secao-grafico-rotativo">
-            <div class="chart-section-title">OCUPAÃƒâ€¡ÃƒÆ’O</div>
+            <div class="chart-section-title">OCUPAÇÃO</div>
 
             <div class="chart-wrapper-lg">
                 <canvas id="chartRotativo"></canvas>
@@ -1518,12 +1519,12 @@
             </div>
         </div>
 
-        <!-- SEÃƒâ€¡ÃƒÆ’O DIREITA: KPIs E ALTAS -->
+        <!-- SEÇÃO DIREITA: KPIs E ALTAS -->
         <div class="secao-kpis-wrapper">
 
-            <!-- BLOCO 1: VAGAS DISPONÃƒÂVEIS -->
+            <!-- BLOCO 1: VAGAS DISPONÍVEIS -->
             <div class="bloco-vagas">
-                <div class="titulo-vagas">VAGAS DISPONÃƒÂVEIS</div>
+                <div class="titulo-vagas">VAGAS DISPONÍVEIS</div>
                 <div class="grid-vagas">
                     <div class="item-vaga enf-adulto">
                         <div class="mini-val" id="kpi-vago-enfAdulto">0</div>
@@ -1588,10 +1589,10 @@
 
       <div class="tendencia-vagas">
           <div class="tendencia-header">
-              <h3>PossÃƒÂ­veis vagas disponÃƒÂ­veis nas prÃƒÂ³ximas duas horas</h3>
+              <h3>Possíveis vagas disponíveis nas próximas duas horas</h3>
           </div>
           <div class="tendencia-lista" id="tendencia-vagas-list"></div>
-          <div class="tendencia-vazia" id="tendencia-vagas-empty" style="display:none;">Sem dados de vagas no perÃƒÂ­odo.</div>
+          <div class="tendencia-vazia" id="tendencia-vagas-empty" style="display:none;">Sem dados de vagas no período.</div>
       </div>
 
   </div>
@@ -1727,8 +1728,8 @@
       <div id="page-semaforo" class="page">
           <div class="dashboard-topbar">
               <div>
-                  <div class="dashboard-title">SemÃƒÂ¡foro de Unidades</div>
-                  <div class="dashboard-periodo-label">ConfiguraÃƒÂ§ÃƒÂ£o por unidade</div>
+                  <div class="dashboard-title">Semáforo de Unidades</div>
+                  <div class="dashboard-periodo-label">Configuração por unidade</div>
               </div>
           </div>
           <div class="dashboard-card">
@@ -1753,21 +1754,21 @@
           <div class="dashboard-topbar">
               <div>
                   <div class="dashboard-title">Unidades com maior fluxo</div>
-                  <div class="dashboard-periodo-label" id="fluxo-periodo-label">ÃƒÅ¡ltimas 24 horas</div>
+                  <div class="dashboard-periodo-label" id="fluxo-periodo-label">Últimas 24 horas</div>
               </div>
           </div>
           <div class="dashboard-card">
-              <h3>Contagem de mudanÃƒÂ§as por unidade</h3>
+              <h3>Contagem de mudanças por unidade</h3>
               <div class="dashboard-unidades-wrapper">
                   <table class="dashboard-table" id="tabela-fluxo">
                       <thead>
                           <tr>
                               <th>Unidade</th>
                               <th>Grupo</th>
-                              <th>MudanÃƒÂ§as</th>
+                              <th>Mudanças</th>
                               <th>Vagas</th>
                               <th>Altas</th>
-                              <th>InternaÃƒÂ§ÃƒÂµes</th>
+                              <th>Internações</th>
                           </tr>
                       </thead>
                       <tbody></tbody>
@@ -1842,10 +1843,10 @@
                           Pares Alta-Vaga
                           <span class="kpi-info" tabindex="0">?
                               <span class="kpi-tooltip">
-                                  Pares AltaÃ¢â‚¬â€˜Vaga: cada evento de vaga ÃƒÂ© pareado com a alta mais recente anterior na mesma unidade.
-                                  ContabilizaÃƒÂ§ÃƒÂ£o: (1) sÃƒÂ³ entra se houver alta antes da vaga; (2) cada alta ÃƒÂ© usada no mÃƒÂ¡ximo uma vez;
-                                  (3) a vaga precisa ocorrer depois da alta; (4) pares sÃƒÂ£o formados por unidade, nÃƒÂ£o entre unidades diferentes.
-                                  Este nÃƒÂºmero ÃƒÂ© a quantidade de pares encontrados no perÃƒÂ­odo selecionado.
+                                  Pares Alta‑Vaga: cada evento de vaga é pareado com a alta mais recente anterior na mesma unidade.
+                                  Contabilização: (1) só entra se houver alta antes da vaga; (2) cada alta é usada no máximo uma vez;
+                                  (3) a vaga precisa ocorrer depois da alta; (4) pares são formados por unidade, não entre unidades diferentes.
+                                  Este número é a quantidade de pares encontrados no período selecionado.
                               </span>
                           </span>
                       </span>
@@ -2237,7 +2238,7 @@
                 <div id="alerta-box-content" class="alerta-box animate__animated animate__zoomIn">
                     <div id="alerta-icone-lg" class="icon-container-lg"></div>
                     <h1 class="alerta-titulo" id="alerta-titulo">NOVA VAGA</h1>
-                    <div class="alerta-sub" id="alerta-sub">DISPONÃƒÂVEL EM</div>
+                    <div class="alerta-sub" id="alerta-sub">DISPONÍVEL EM</div>
                     <div class="alerta-detalhe" id="alerta-local">UTI ADULTO</div>
                 </div>
             </div>
@@ -2246,9 +2247,9 @@
 
             <div class="painel-estatico">
 
-                <!-- SEÃƒâ€¡ÃƒÆ’O ESQUERDA: GRÃƒÂFICO ROTATIVO + LISTA -->
+                <!-- SEÇÃO ESQUERDA: GRÁFICO ROTATIVO + LISTA -->
                 <div class="secao-grafico-rotativo">
-                    <div class="chart-section-title">OCUPAÃƒâ€¡ÃƒÆ’O</div>
+                    <div class="chart-section-title">OCUPAÇÃO</div>
 
                     <div class="chart-wrapper-lg">
                         <canvas id="chartRotativo"></canvas>
@@ -2262,12 +2263,12 @@
                     </div>
                 </div>
 
-                <!-- SEÃƒâ€¡ÃƒÆ’O DIREITA: KPIs E ALTAS -->
+                <!-- SEÇÃO DIREITA: KPIs E ALTAS -->
                 <div class="secao-kpis-wrapper">
 
-                    <!-- BLOCO 1: VAGAS DISPONÃƒÂVEIS -->
+                    <!-- BLOCO 1: VAGAS DISPONÍVEIS -->
                     <div class="bloco-vagas">
-                        <div class="titulo-vagas">VAGAS DISPONÃƒÂVEIS</div>
+                        <div class="titulo-vagas">VAGAS DISPONÍVEIS</div>
                         <div class="grid-vagas">
                             <div class="item-vaga enf-adulto">
                                 <div class="mini-val" id="kpi-vago-enfAdulto">0</div>
@@ -2421,7 +2422,7 @@
                         <div id="alerta-box-content" class="alerta-box animate__animated animate__zoomIn">
                             <div id="alerta-icone-lg" class="icon-container-lg"></div>
                             <h1 class="alerta-titulo" id="alerta-titulo">NOVA VAGA</h1>
-                            <div class="alerta-sub" id="alerta-sub">DISPONÃƒÂVEL EM</div>
+                            <div class="alerta-sub" id="alerta-sub">DISPONÍVEL EM</div>
                             <div class="alerta-detalhe" id="alerta-local">UTI ADULTO</div>
                         </div>
                     </div>
@@ -2430,9 +2431,9 @@
 
                     <div class="painel-estatico">
 
-                        <!-- SEÃƒâ€¡ÃƒÆ’O ESQUERDA: GRÃƒÂFICO ROTATIVO + LISTA -->
+                        <!-- SEÇÃO ESQUERDA: GRÁFICO ROTATIVO + LISTA -->
                         <div class="secao-grafico-rotativo">
-                            <div class="chart-section-title">OCUPAÃƒâ€¡ÃƒÆ’O</div>
+                            <div class="chart-section-title">OCUPAÇÃO</div>
 
                             <div class="chart-wrapper-lg">
                                 <canvas id="chartRotativo"></canvas>
@@ -2446,12 +2447,12 @@
                             </div>
                         </div>
 
-                        <!-- SEÃƒâ€¡ÃƒÆ’O DIREITA: KPIs E ALTAS -->
+                        <!-- SEÇÃO DIREITA: KPIs E ALTAS -->
                         <div class="secao-kpis-wrapper">
 
-                            <!-- BLOCO 1: VAGAS DISPONÃƒÂVEIS -->
+                            <!-- BLOCO 1: VAGAS DISPONÍVEIS -->
                             <div class="bloco-vagas">
-                                <div class="titulo-vagas">VAGAS DISPONÃƒÂVEIS</div>
+                                <div class="titulo-vagas">VAGAS DISPONÍVEIS</div>
                                 <div class="grid-vagas">
                                     <div class="item-vaga enf-adulto">
                                         <div class="mini-val" id="kpi-vago-enfAdulto">0</div>
@@ -2518,23 +2519,22 @@
                         const TEMPO_NOTIFICACAO_STACK = 200000; // 3.2 minutos
                         const TEMPO_ROTACAO_GRAFICO = 7000; // 7 Segundos
 
-                        // RotaÃƒÂ§ÃƒÂ£o do painel inferior (slides + scroll interno)
+                        // Rotação do painel inferior (slides + scroll interno)
                         const TICK_ROTACAO_INFERIOR = 30;
                         const VELOCIDADE_SCROLL_TABELA = 1.2;
                         const TEMPO_PAUSA_FINAL_TABELA = 2500;
                         const TEMPO_PAUSA_INICIO_SLIDE = 1200;
                         const TEMPO_SLIDE_SEM_SCROLL = 9000;
 
-                        // Contadores diÃƒÂ¡rios + CSV
+                        // Contadores diários + CSV
                         const STORAGE_KEY_ESTADO_DIARIO = 'painel-leitos:estado-diario:v1';
                         const STORAGE_KEY_EVENTOS = 'painel-leitos:eventos:v1';
                         const STORAGE_KEY_EVENTOS_PENDENTES = 'painel-leitos:eventos-pendentes:v1';
                         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwOAlGEX6eraMwGiZ_XsPOS1xONLQIC1UF8a-6u-xbWZX8dTs0uFdg1nIrNXBgD07PIPA/exec';
-                        const ENABLE_ENVIO_PLANILHA = false;
                         const MAX_HISTORICO_DIAS = 120;
                         const MAX_EVENTOS = 20000;
 
-                        // --- CONFIGURAÃƒâ€¡ÃƒÆ’O WHATSAPP (CallMeBot) ---
+                        // --- CONFIGURAÇÃO WHATSAPP (CallMeBot) ---
                         const CALLMEBOT_API_KEY = '6908972';
                         const WHATSAPP_TARGET_PHONE = '5514997623236';
 
@@ -2579,6 +2579,12 @@
                         let chartAtrasoEspecialidade = null;
                         let chartAtrasoEspecialidadeMedia = null;
                         let chartAtrasoEvolucao = null;
+                        let atrasoEspecialidadeSelecionada = 'todas';
+                        let atrasoPeriodoAtivo = 'dia';
+                        let atrasoMesSelecionado = null;
+                        let atrasoAnoSelecionado = null;
+
+                        // Variaveis para pagina Vaga -> Internacao
                         let chartInternacaoDistribuicao = null;
                         let chartInternacaoUnidades = null;
                         let chartInternacaoEspecialidade = null;
@@ -2588,18 +2594,12 @@
                         let internacaoPeriodoAtivo = 'dia';
                         let internacaoMesSelecionado = null;
                         let internacaoAnoSelecionado = null;
-                        let atrasoEspecialidadeSelecionada = 'todas';
-                        let atrasoPeriodoAtivo = 'dia';
-                        let atrasoMesSelecionado = null;
-                        let atrasoAnoSelecionado = null;
-
-
 
                         const ICONE_CAMA = `<svg class="svg-icon svg-vago" viewBox="0 0 24 24"><path d="M20,10V7A2,2 0 0,0 18,5H6A2,2 0 0,0 4,5V8H2V19H4V15H20V19H22V10H20M13,7H18V10H13V7M6,7H11V10H6V7M20,13H4V12H20V13Z" /></svg>`;
                         const ICONE_CRUZ = `<svg class="svg-icon svg-cruz" viewBox="0 0 24 24"><path d="M18,14H14V18H10V14H6V10H10V6H14V10H18M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" /></svg>`;
                         const ICONE_ALTA = `<svg class="svg-icon svg-alta" viewBox="0 0 24 24"><path d="M5,5H11V7H5V17H11V19H5A2,2 0 0,1 3,17V7A2,2 0 0,1 5,5M21,12L15,18V13H9V11H15V6L21,12Z" /></svg>`;
 
-                        // ConfiguraÃƒÂ§ÃƒÂ£o dos tipos de grÃƒÂ¡ficos para rotaÃƒÂ§ÃƒÂ£o - ALTERADO
+                        // Configuração dos tipos de gráficos para rotação - ALTERADO
                         const configGraficos = [
                             { key: 'geral', label: 'Geral', color: '#7c4dff' },
                             { key: 'enfAdulto', label: 'Enf Adulto', color: '#00ff88' },
@@ -2634,7 +2634,7 @@
                             // 'UTI GERAL ADULTO': { vermelho: 1, amarelo: 3 }
                         };
 
-                        const TICKER_MARCA = 'HCFMB - NÃƒÂºcleo Interno de RegulaÃƒÂ§ÃƒÂ£o';
+                        const TICKER_MARCA = 'HCFMB - Núcleo Interno de Regulação';
                         let tickerBaseText = 'Iniciando monitoramento...';
                         let tickerOverrideText = null;
                         let horarioAtual = '';
@@ -2716,10 +2716,10 @@
                             setInterval(processarFila, 1000);
                             setInterval(atualizarTemposCards, 30000);
 
-                            // RotaÃƒÂ§ÃƒÂ£o do grÃƒÂ¡fico
+                            // Rotação do gráfico
                             setInterval(rotacionarGrafico, TEMPO_ROTACAO_GRAFICO);
 
-                            // Scroll automÃƒÂ¡tico da pÃƒÂ¡gina
+                            // Scroll automático da página
                             iniciarRotacaoInferior();
                         });
 
@@ -2739,10 +2739,10 @@
                             renderTicker();
                         }
 
-                        // --- FUNÃƒâ€¡ÃƒÆ’O DE NOTIFICAÃƒâ€¡ÃƒÆ’O WHATSAPP (CallMeBot) ---
+                        // --- FUNÇÃO DE NOTIFICAÇÃO WHATSAPP (CallMeBot) ---
                         async function enviarNotificacaoWhatsApp(mensagem) {
                             if (CALLMEBOT_API_KEY === 'SUA_API_KEY_AQUI') {
-                                console.log("Ã¢Å¡Â Ã¯Â¸Â API Key do CallMeBot nÃƒÂ£o configurada. Mensagem:", mensagem);
+                                console.log("⚠️ API Key do CallMeBot não configurada. Mensagem:", mensagem);
                                 return;
                             }
 
@@ -2754,17 +2754,17 @@
                                 // CallMeBot usa GET simples
                                 const response = await fetch(url);
                             } catch (error) {
-                                console.error("Ã¢ÂÅ’ Erro ao conectar com CallMeBot:", error);
+                                console.error("❌ Erro ao conectar com CallMeBot:", error);
                             }
                         }
 
-                        // --- SCROLL AUTOMÃƒÂTICO DA PÃƒÂGINA (PARA TELÃƒÆ’O) ---
+                        // --- SCROLL AUTOMÁTICO DA PÁGINA (PARA TELÃO) ---
                         function iniciarScrollAutomatico() {
                             const container = document.getElementById('container-leitos');
                             const velocidade = 0.8; // Velocidade de scroll
                             const tickRate = 30;
                             const pausaNoFinal = 4000; // 4 segundos no final
-                            const pausaNoInicio = 3000; // 3 segundos no inÃƒÂ­cio
+                            const pausaNoInicio = 3000; // 3 segundos no início
 
                             let pausado = false;
 
@@ -2773,7 +2773,7 @@
 
                                 const maxScroll = container.scrollHeight - container.clientHeight;
 
-                                // Se nÃƒÂ£o hÃƒÂ¡ conteÃƒÂºdo para rolar
+                                // Se não há conteúdo para rolar
                                 if (maxScroll <= 1) {
                                     container.scrollTop = 0;
                                     return;
@@ -3025,15 +3025,11 @@
                         function carregarEventos() {
                             try {
                                 const rawEventos = localStorage.getItem(STORAGE_KEY_EVENTOS);
+                                const rawPendentes = localStorage.getItem(STORAGE_KEY_EVENTOS_PENDENTES);
                                 eventos = rawEventos ? JSON.parse(rawEventos) : [];
+                                eventosPendentes = rawPendentes ? JSON.parse(rawPendentes) : [];
                                 if (!Array.isArray(eventos)) eventos = [];
-                                if (ENABLE_ENVIO_PLANILHA) {
-                                    const rawPendentes = localStorage.getItem(STORAGE_KEY_EVENTOS_PENDENTES);
-                                    eventosPendentes = rawPendentes ? JSON.parse(rawPendentes) : [];
-                                    if (!Array.isArray(eventosPendentes)) eventosPendentes = [];
-                                } else {
-                                    eventosPendentes = [];
-                                }
+                                if (!Array.isArray(eventosPendentes)) eventosPendentes = [];
                             } catch (e) {
                                 console.error(e);
                                 eventos = [];
@@ -3044,9 +3040,7 @@
                         function salvarEventos() {
                             try {
                                 localStorage.setItem(STORAGE_KEY_EVENTOS, JSON.stringify(eventos));
-                                if (ENABLE_ENVIO_PLANILHA) {
-                                    localStorage.setItem(STORAGE_KEY_EVENTOS_PENDENTES, JSON.stringify(eventosPendentes));
-                                }
+                                localStorage.setItem(STORAGE_KEY_EVENTOS_PENDENTES, JSON.stringify(eventosPendentes));
                             } catch (e) {
                                 console.error(e);
                             }
@@ -3073,15 +3067,13 @@
                         function registrarEventos(eventosNovos) {
                             if (!Array.isArray(eventosNovos) || eventosNovos.length === 0) return;
                             eventos = eventos.concat(eventosNovos);
+                            eventosPendentes = eventosPendentes.concat(eventosNovos);
                             limitarEventos();
                             salvarEventos();
                             atualizarDashboard();
                             atualizarTendenciaVagas();
                             atualizarFluxo24h();
-                            if (ENABLE_ENVIO_PLANILHA) {
-                                eventosPendentes = eventosPendentes.concat(eventosNovos);
-                                agendarEnvioPlanilha(construirEntriesComAtual(), eventosPendentes);
-                            }
+                            agendarEnvioPlanilha(construirEntriesComAtual(), eventosPendentes);
                         }
 
                         function criarSnapshotAtual() {
@@ -3223,7 +3215,7 @@
                         }
 
                         function agendarEnvioPlanilha(entries, eventosEnvio) {
-                            if (!GOOGLE_SHEETS_URL || !ENABLE_ENVIO_PLANILHA) return;
+                            if (!GOOGLE_SHEETS_URL) return;
                             if (envioPlanilhaTimer) clearTimeout(envioPlanilhaTimer);
                             const eventosSnapshot = Array.isArray(eventosEnvio) ? [...eventosEnvio] : [];
                             const hash = gerarHashEnvio(entries, eventosSnapshot);
@@ -3234,7 +3226,7 @@
                         }
 
                         async function enviarParaPlanilha(entries, eventosEnvio, hashEnvio) {
-                            if (!GOOGLE_SHEETS_URL || !ENABLE_ENVIO_PLANILHA) return;
+                            if (!GOOGLE_SHEETS_URL) return;
                             const payload = {
                                 entries: entries.map(mapearEntryParaPlanilha),
                                 eventos: Array.isArray(eventosEnvio) ? eventosEnvio.map(mapearEventoParaPlanilha) : []
@@ -3295,20 +3287,16 @@
                                     } else if (entriesPlanilha.length > 0) {
                                         ultimoHashEnvio = gerarHashEnvio(entriesPlanilha, []);
                                     }
-                                    if (eventosPlanilha.length > 0) {
-                                        const idsPlanilha = new Set(eventosPlanilha.map(e => e.id));
-                                        if (ENABLE_ENVIO_PLANILHA) {
-                                            eventosPendentes = eventosPendentes.filter(e => !idsPlanilha.has(e.id));
-                                            eventosMesclados = mesclarEventos(eventosPlanilha, eventosPendentes);
-                                        } else {
-                                            eventosMesclados = eventosPlanilha;
-                                        }
-                                        eventos = eventosMesclados;
-                                        salvarEventos();
-                                        atualizarDashboard();
-                                        atualizarComparativos();
-                                        atualizarTendenciaVagas();
-                                        atualizarFluxo24h();
+                                      if (eventosPlanilha.length > 0) {
+                                          const idsPlanilha = new Set(eventosPlanilha.map(e => e.id));
+                                          eventosPendentes = eventosPendentes.filter(e => !idsPlanilha.has(e.id));
+                                          eventosMesclados = mesclarEventos(eventosPlanilha, eventosPendentes);
+                                          eventos = eventosMesclados;
+                                          salvarEventos();
+                                          atualizarDashboard();
+                                          atualizarComparativos();
+                                          atualizarTendenciaVagas();
+                                          atualizarFluxo24h();
                                       }
 
                                     if (eventosMesclados && eventosMesclados.length > 0) {
@@ -3322,7 +3310,7 @@
                                         atualizarKpisDiarios();
                                     }
 
-                                    if (ENABLE_ENVIO_PLANILHA && eventosPendentes.length > 0) {
+                                    if (eventosPendentes.length > 0) {
                                         agendarEnvioPlanilha(construirEntriesComAtual(), eventosPendentes);
                                     }
                                 } finally {
@@ -3581,9 +3569,9 @@
                             tbody.innerHTML = linhas.map(item => {
                                 const classe = `semaforo-${item.status}`;
                                 const label = item.status === 'vermelho'
-                                    ? 'CrÃƒÂ­tico'
+                                    ? 'Crítico'
                                     : item.status === 'amarelo'
-                                        ? 'AtenÃƒÂ§ÃƒÂ£o'
+                                        ? 'Atenção'
                                         : 'Ok';
                                 return `
                     <tr>
@@ -3602,7 +3590,7 @@
                             const tbody = tabela.querySelector('tbody');
                             if (!tbody) return;
                             const labelEl = document.getElementById('fluxo-periodo-label');
-                            if (labelEl) labelEl.innerText = `ÃƒÅ¡ltimas ${HORAS_FLUXO} horas`;
+                            if (labelEl) labelEl.innerText = `Últimas ${HORAS_FLUXO} horas`;
 
                             const eventosPeriodo = filtrarEventosUltimasHoras(HORAS_FLUXO);
                             const mapa = new Map();
@@ -3634,7 +3622,7 @@
                             }).slice(0, 30);
 
                             if (lista.length === 0) {
-                                tbody.innerHTML = `<tr><td colspan="6" style="color:#94a3b8;">Sem eventos nas ÃƒÂºltimas ${HORAS_FLUXO}h.</td></tr>`;
+                                tbody.innerHTML = `<tr><td colspan="6" style="color:#94a3b8;">Sem eventos nas últimas ${HORAS_FLUXO}h.</td></tr>`;
                                 return;
                             }
 
@@ -3650,7 +3638,7 @@
             `).join('');
                         }
 
-                        // ========== FUNÃƒâ€¡Ãƒâ€¢ES DO DASHBOARD DE ATRASO ALTA->VAGA ==========
+                        // ========== FUNÇÕES DO DASHBOARD DE ATRASO ALTA->VAGA ==========
 
                         function formatarDuracao(ms) {
                             if (!ms || ms < 0) return '--';
@@ -3756,11 +3744,13 @@
                         }
 
                         function calcularParesAltaVaga(eventosFiltrados) {
-                            // Agrupa eventos por unidade
+                            // Agrupa eventos por unidade e respeita delta (quantidade de eventos)
                             const porUnidade = new Map();
                             eventosFiltrados.forEach(e => {
                                 if (!e || !e.unidade) return;
                                 if (e.tipo !== 'alta' && e.tipo !== 'vaga') return;
+                                const qtd = toInt(e.delta);
+                                if (qtd <= 0) return;
                                 if (!porUnidade.has(e.unidade)) {
                                     porUnidade.set(e.unidade, { altas: [], vagas: [] });
                                 }
@@ -3768,23 +3758,23 @@
                                 const ts = obterTimestampEvento(e);
                                 if (!ts || Number.isNaN(ts.getTime())) return;
 
-                                if (e.tipo === 'alta') {
-                                    grupo.altas.push({ ts, evento: e, usado: false });
-                                } else if (e.tipo === 'vaga') {
-                                    grupo.vagas.push({ ts, evento: e });
-                                }
+                                const registro = { ts, grupo: e.grupo || '-', qtd };
+                                if (e.tipo === 'alta') grupo.altas.push(registro);
+                                else grupo.vagas.push(registro);
                             });
 
                             const pares = [];
 
-                            // Para cada unidade, emparelha vagas com altas anteriores mais prÃƒÂ³ximas
+                            // Para cada unidade, emparelha vagas com altas anteriores mais próximas
                             porUnidade.forEach((dados, unidade) => {
                                 // Ordena por timestamp
-                                dados.altas.sort((a, b) => a.ts - b.ts);
-                                dados.vagas.sort((a, b) => a.ts - b.ts);
+                                const altas = dados.altas.sort((a, b) => a.ts - b.ts);
+                                const vagas = dados.vagas.sort((a, b) => a.ts - b.ts);
+                                const pilhaAltas = [];
+                                let idxAlta = 0;
 
-                                dados.vagas.forEach(vaga => {
-                                    // Encontra a alta mais recente nÃƒÂ£o usada que seja anterior ÃƒÂ  vaga
+                                vagas.forEach(vaga => {
+                                    // Encontra a alta mais recente não usada que seja anterior à vaga
                                     let altaMaisProxima = null;
                                     for (let i = dados.altas.length - 1; i >= 0; i--) {
                                         const alta = dados.altas[i];
@@ -3919,7 +3909,7 @@
                                 }
                             }
                             if (atrasoEspecialidadeSelecionada && atrasoEspecialidadeSelecionada !== 'todas') {
-                                labelEl.innerText = `${labelEl.innerText} Ã‚Â· ${atrasoEspecialidadeSelecionada}`;
+                                labelEl.innerText = `${labelEl.innerText} · ${atrasoEspecialidadeSelecionada}`;
                             }
                         }
 
@@ -3950,7 +3940,7 @@
                         }
 
                         function atualizarGraficosAtraso(pares, intervalo, especialidadeSelecionada, paresTodos) {
-                            // GrÃƒÂ¡fico de distribuiÃƒÂ§ÃƒÂ£o por faixa de tempo
+                            // Gráfico de distribuição por faixa de tempo
                             const canvasDistribuicao = document.getElementById('chart-atraso-distribuicao');
                             if (canvasDistribuicao) {
                                 const faixas = [
@@ -3997,7 +3987,7 @@
                                 });
                             }
 
-                            // GrÃƒÂ¡fico de atraso mÃƒÂ©dio por unidade (top 10)
+                            // Gráfico de atraso médio por unidade (top 10)
                             const canvasUnidades = document.getElementById('chart-atraso-unidades');
                             if (canvasUnidades) {
                                 const porUnidade = new Map();
@@ -4300,7 +4290,7 @@
                                 unidadesBody.innerHTML = linhas || `<tr><td colspan="6" style="color:#94a3b8">Sem pares no periodo</td></tr>`;
                             }
 
-                            // Tabela de ÃƒÂºltimos pares
+                            // Tabela de últimos pares
                             const paresBody = document.getElementById('atraso-pares-body');
                             if (paresBody) {
                                 const paresOrdenados = [...pares].sort((a, b) => b.vagaTs - a.vagaTs);
@@ -4355,7 +4345,7 @@
                                 });
                             }
 
-                            // BotÃƒÂµes de perÃƒÂ­odo
+                            // Botões de período
                             const btnDia = document.getElementById('btn-atraso-dia');
                             const btnSemana = document.getElementById('btn-atraso-semana');
                             const btnMes = document.getElementById('btn-atraso-mes');
@@ -4383,7 +4373,7 @@
                             if (btnCustom) btnCustom.addEventListener('click', () => ativarBotaoPeriodo(btnCustom, 'custom'));
                             if (btnAplicar) btnAplicar.addEventListener('click', () => atualizarAtraso());
 
-                            // Inicializa as datas do perÃƒÂ­odo personalizado
+                            // Inicializa as datas do período personalizado
                             const dataInicio = document.getElementById('atraso-data-inicio');
                             const dataFim = document.getElementById('atraso-data-fim');
                             if (dataInicio && dataFim) {
@@ -4393,7 +4383,9 @@
                             }
                         }
 
-                        // ========== FIM FUNÃƒâ€¡Ãƒâ€¢ES DO DASHBOARD DE ATRASO ==========
+                        // ========== FIM FUNÇÕES DO DASHBOARD DE ATRASO ==========
+
+                        // ========== FUNÇÕES DO DASHBOARD VAGA -> INTERNAÇÃO ==========
 
                         function popularSelectEspecialidadeInternacao() {
                             const select = document.getElementById('internacao-select-especialidade');
@@ -4584,7 +4576,7 @@
                                 }
                             }
                             if (internacaoEspecialidadeSelecionada && internacaoEspecialidadeSelecionada !== 'todas') {
-                                labelEl.innerText = `${labelEl.innerText} Ã‚Â· ${internacaoEspecialidadeSelecionada}`;
+                                labelEl.innerText = `${labelEl.innerText} · ${internacaoEspecialidadeSelecionada}`;
                             }
                         }
 
@@ -4877,7 +4869,7 @@
 
                             const especialidadeSel = popularSelectEspecialidadeInternacao();
 
-                            // Calcula pares com contexto atÃƒÂ© o fim do perÃƒÂ­odo e depois filtra pelo timestamp da internaÃƒÂ§ÃƒÂ£o
+                            // Calcula pares com contexto até o fim do período e depois filtra pelo timestamp da internação
                             const paresTodosContexto = calcularParesVagaInternacaoMaisProximo(eventosContexto);
                             const paresTodos = filtrarParesPorIntervalo(
                                 paresTodosContexto,
@@ -5071,8 +5063,7 @@
                             }
                         }
 
-                        // ========== FIM FUNÃƒâ€¡Ãƒâ€¢ES DO DASHBOARD VAGA -> INTERNAÃƒâ€¡ÃƒÆ’O ==========
-
+                        // ========== FIM FUNÇÕES DO DASHBOARD VAGA -> INTERNAÇÃO ==========
 
                         function acumularEventos(entries) {
                             const totais = { alta: 0, internacao: 0, vaga: 0 };
@@ -5734,7 +5725,7 @@
                                 dadosAnteriores = dados;
                               } catch (e) {
                                   console.error(e);
-                                  tickerOverrideText = "CONEXÃƒÆ’O INTERROMPIDA - TENTANDO RECONECTAR...";
+                                  tickerOverrideText = "CONEXÃO INTERROMPIDA - TENTANDO RECONECTAR...";
                                   tickerColor = "red";
                                   renderTicker();
                               }
@@ -5915,7 +5906,7 @@
                             document.getElementById('kpi-vago-utiAdulto').innerText = t.utiAdulto.vago;
                             document.getElementById('kpi-vago-utiInf').innerText = t.utiInf.vago;
 
-                            // --- LÃƒâ€œGICA DE ALTAS (ADULTO E INFANTIL) ---
+                            // --- LÓGICA DE ALTAS (ADULTO E INFANTIL) ---
                             const altaTotal = t.geral.alta;
                             const altaAdulto = t.enfAdulto.alta + t.utiAdulto.alta;
                             const altaInfantil = t.enfInf.alta + t.utiInf.alta;
@@ -6040,7 +6031,7 @@
                             atualizarFluxo24h();
                         }
 
-                        // --- LÃƒâ€œGICA DO GRÃƒÂFICO ROTATIVO ---
+                        // --- LÓGICA DO GRÁFICO ROTATIVO ---
                         function rotacionarGrafico() {
                             if (!dadosGlobais) return;
 
@@ -6106,7 +6097,7 @@
                             elLista.innerHTML = html;
                         }
 
-                        // --- LÃƒâ€œGICA DE DETECÃƒâ€¡ÃƒÆ’O ---
+                        // --- LÓGICA DE DETECÇÃO ---
                         function detectingMudancasMultiplas(novosDados) {
                             if (!dadosAnteriores) return [];
 
@@ -6160,9 +6151,9 @@
                             processandoAlerta = true;
                             const proximoAlerta = filaAlertas.shift();
 
-                            // --- DISPARO DE NOTIFICAÃƒâ€¡ÃƒÆ’O WHATSAPP ---
+                            // --- DISPARO DE NOTIFICAÇÃO WHATSAPP ---
                             if (proximoAlerta.tipo === 'vaga') {
-                                const msg = `Ã°Å¸ÂÂ¥ *ALERTA DE VAGA* Ã°Å¸ÂÂ¥\n\nUma nova vaga foi detectada em:\n${proximoAlerta.unidades.join(', ')}\n\n_Central de Leitos HCFMB_`;
+                                const msg = `🏥 *ALERTA DE VAGA* 🏥\n\nUma nova vaga foi detectada em:\n${proximoAlerta.unidades.join(', ')}\n\n_Central de Leitos HCFMB_`;
                                 enviarNotificacaoWhatsApp(msg);
                             }
 
@@ -6190,7 +6181,7 @@
                                 if (info.tipo === 'vaga') {
                                     tempoExibicao = TEMPO_ALERTA_VAGA;
                                     box.classList.add('alerta-vago');
-                                    titulo.innerText = "NOVA VAGA"; sub.innerText = "DISPONÃƒÂVEL EM"; iconeDiv.innerHTML = ICONE_CAMA;
+                                    titulo.innerText = "NOVA VAGA"; sub.innerText = "DISPONÍVEL EM"; iconeDiv.innerHTML = ICONE_CAMA;
                                 } else if (info.tipo === 'alta') {
                                     tempoExibicao = TEMPO_ALERTA_ALTA;
                                     box.classList.add('alerta-alta');
@@ -6198,10 +6189,10 @@
                                 } else {
                                     tempoExibicao = TEMPO_ALERTA_INTERNACAO;
                                     box.classList.add('alerta-internacao');
-                                    titulo.innerText = "NOVA INTERNAÃƒâ€¡ÃƒÆ’O"; sub.innerText = "REGISTRADA EM"; iconeDiv.innerHTML = ICONE_CRUZ;
+                                    titulo.innerText = "NOVA INTERNAÇÃO"; sub.innerText = "REGISTRADA EM"; iconeDiv.innerHTML = ICONE_CRUZ;
                                 }
 
-                                local.innerText = info.unidades.length > 1 ? "MÃƒÅ¡LTIPLAS UNIDADES" : info.unidades[0];
+                                local.innerText = info.unidades.length > 1 ? "MÚLTIPLAS UNIDADES" : info.unidades[0];
                                 overlay.style.display = 'flex';
                                 tickerOverrideText = `ALERTA: ${info.tipo.toUpperCase()} EM ${info.unidades.join(', ')}`;
                                 tickerColor = '#fff';
@@ -6234,7 +6225,7 @@
                             } else if (info.tipo === 'alta') {
                                 titulo = "NOVA ALTA"; corTitulo = "var(--cor-alta)"; div.classList.add('alta'); icone = ICONE_ALTA;
                             } else {
-                                titulo = "NOVA INTERNAÃƒâ€¡ÃƒÆ’O"; corTitulo = "var(--cor-cruz)"; div.classList.add('internacao'); icone = ICONE_CRUZ;
+                                titulo = "NOVA INTERNAÇÃO"; corTitulo = "var(--cor-cruz)"; div.classList.add('internacao'); icone = ICONE_CRUZ;
                             }
 
                             div.innerHTML = `<div class="icon-container-sm">${icone}</div>
@@ -6254,7 +6245,7 @@
                                 const ts = parseInt(card.dataset.timestamp);
                                 const min = Math.floor((Date.now() - ts) / 60000);
                                 const timeEl = card.querySelector('.card-time');
-                                if (timeEl) timeEl.innerText = min < 1 ? "Agora" : `HÃƒÂ¡ ${min} min`;
+                                if (timeEl) timeEl.innerText = min < 1 ? "Agora" : `Há ${min} min`;
                             });
                         }
                     </script>
